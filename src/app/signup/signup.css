@@ -1,0 +1,90 @@
+.container{
+    display:flex;
+    flex-direction: column;
+    gap:25px;
+    align-items: center;
+    justify-content: center;
+    background-color:#1c75bc;
+     font-family: "alexandria";
+     color:white;
+     font-size:30px;
+     margin-left:250px;
+     margin-right:250px;
+     border-radius: 40px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+small{
+    color:#0f3554;
+    font-size:15px;
+}
+div{
+  display:flex;
+    flex-direction: column;  
+}
+
+
+input{
+    font-family: "alexandria";
+    padding-left:20px;
+    padding-right:20px;
+    height:35px;
+    width:400px;
+    border-radius:40px;
+    border-color: white;
+    font-size:20px;
+    border-style: solid;
+}
+.input{
+    padding-bottom:70px;
+   color:#1c75bc;
+   margin-left:300px;
+  
+   
+}
+.upload{
+    display: flex;
+    justify-content: center;
+}
+button{
+    color:#000000;
+    font-size:30px;
+    border-radius:40px;
+    font-family: "alexandria";
+    border:none;
+    height:50px;
+    width:350px;
+}
+.button{
+    margin-top:20px;
+    align-items: center;
+}
+h2{
+    text-align: center;
+}
+.input{
+    border:none;
+}
+.input::file-selector-button{
+    font-family: "alexandria";
+    border-radius: 50%;
+    height:100px;
+    width:100px;
+  background-color: white;
+   border-color: white;
+   color:white;
+   border-style:solid;
+   background-image: url("/assets/Profile-Icon.png");
+   background-size: cover;
+   font-size: 1px;
+   color:#aaa9a9
+    
+    
+}
+
+input.ng-touched.ng-invalid {
+  border-color: #e74c3c;
+}
+ 
+input.ng-touched.ng-valid {
+  border-color: #2ecc71;        
+}

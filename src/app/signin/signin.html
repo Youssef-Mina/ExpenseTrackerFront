@@ -1,0 +1,37 @@
+<form #signinForm="ngForm" (ngSubmit)="onSubmit()"  class="container">
+  <div>
+    <h2>Login Form</h2>
+    <label for="email">Email</label>
+    <input
+      type="email"
+      name="email"
+      ngModel
+      required
+      email
+      #emailRef="ngModel"
+    />
+
+    @if (emailRef.invalid && emailRef.touched){
+    <small>*Vaild email is required</small>
+    }
+  </div>
+    <div>
+      <label for="password">Password</label>
+      <input
+        type="password"
+        name="password"
+        ngModel
+        required
+        minlength="4"
+        #passwordRef="ngModel"
+      />
+      @if (passwordRef.invalid && passwordRef.touched){
+      <small>*Vaild password is required</small>
+      }
+    </div>
+    <button type="submit" [disabled]="signinForm.invalid">Login</button>
+
+    @if(error){
+    <p>{{ error }}</p>
+    }
+</form>

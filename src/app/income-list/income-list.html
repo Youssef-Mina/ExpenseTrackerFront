@@ -1,0 +1,8 @@
+<button (click)="addIncome()">ADD INCOME</button>
+<button (click)="updateIncome()">UPDATE INCOME</button>
+<button (click)="deleteIncome()">DELETE INCOME</button>
+
+@for (income of incomes; track $index) {
+
+<p>{{income.comment}}</p>    
+}

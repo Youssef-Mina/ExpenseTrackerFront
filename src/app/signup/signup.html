@@ -1,0 +1,94 @@
+
+
+<form #signupForm="ngForm" (ngSubmit)="onSubmit()" class="container">
+
+  <div>
+    <h2>SignUp Form</h2>
+  </div>
+
+  <div class="upload">
+  
+    <input
+      type="file"
+      name="photo"
+      ngModel
+      accept="image/*"
+      #photoRef="ngModel"
+      (change)="onFileSelected($event)"
+      class="input"
+    />
+    @if (photoRef.invalid && photoRef.touched){
+    <small>*Enter a Valid Image</small>
+    }
+  </div>
+  <div>
+    <label for="name">Name</label>
+    <input
+      type="text"
+      name="name"
+      ngModel
+      required
+      minlength="3"
+      #nameRef="ngModel"
+    />
+
+    @if (nameRef.invalid && nameRef.touched){
+    <small>*Vaild Name is required</small>
+    }
+  </div>
+  <div>
+    <label for="email">Email</label>
+    <input
+      type="email"
+      name="email"
+      ngModel
+      required
+      email
+      #emailRef="ngModel"
+    />
+    @if (emailRef.invalid && emailRef.touched){
+    <small>*Vaild Email is required</small>
+    }
+  </div>
+  <div>
+    <label for="password">Password</label>
+    <input
+      type="password"
+      name="password"
+      ngModel
+      required
+      minlength="4"
+      #passwordRef="ngModel"
+    />
+    @if (passwordRef.invalid && passwordRef.touched){
+    <small>*Vaild Password is required</small>
+    }
+  </div>
+  <div>
+    <label for="password">Confirm Password</label>
+    <input
+      type="password"
+      name="confirmpassword"
+      ngModel
+      required
+      minlength="4"
+      #confirmpasswordRef="ngModel"
+    />
+    @if (confirmpasswordRef.invalid && confirmpasswordRef.touched){
+    <small>*Confirm Password is required</small>
+    }
+    @if(matchedPassword){
+        <small>Password not matched</small>
+    }
+  </div>
+  <div class="button">
+    <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>
+    </div>
+  
+
+  @if(error){
+  <p>{{ error }}</p>
+  }
+
+  
+</form>

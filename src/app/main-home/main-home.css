@@ -1,0 +1,68 @@
+.logo img{
+    padding-top: 100px;
+    padding-left:50px;
+    height:200px;
+    
+}
+hr{
+    height:3px;
+    border:none;
+    background-color:#d9d8d8;
+    border-radius:80px;
+    margin-left:80px;
+    margin-right:80px;
+}
+.logo .text{
+    font-family: "alexandria";
+    font-size: 60px;
+    text-align: right;
+}
+.oneapp{
+    color:#1c75bc;
+}
+.yalla{
+text-align: center;
+font-size:70px;
+font-family:"alexandria";
+color:#000000;
+}
+.now{
+    color:#1c75bc;
+}
+
+.buttons{
+    display: flex;
+    gap:300px;
+    justify-content: center;
+}
+.buttons .btn1{
+    background-color: #1c75bc;
+    border:none;
+    font-family: "alexandria";
+    color:white;
+    font-size:35px;
+    padding-top:15px;
+    padding-bottom:15px;
+    padding-left: 60px;
+    padding-right: 60px;
+    border-radius:100px;
+    cursor:pointer;
+}
+.buttons .btn2{
+    background-color: #1c75bc;
+    border:none;
+    font-family: "alexandria";
+    color:white;
+    font-size:35px;
+    padding-top:15px;
+    padding-bottom:15px;
+    padding-left: 50px;
+    padding-right: 50px;
+    border-radius:100px;
+    cursor:pointer;
+}
+.start{
+    display: flex;
+    flex-direction: column;
+    
+}

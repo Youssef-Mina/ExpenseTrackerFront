@@ -1,0 +1,11 @@
+
+<button (click)="addExpense()">ADD EXPENSE</button>
+
+<button (click)="updateExpense()">UPDATE EXPENSE</button>
+
+<button (click)="deleteExpense()">DELETE EXPENSE </button>
+
+@for (expense of expenses; track $index) {
+
+<p>{{expense.comment}}</p>    
+}

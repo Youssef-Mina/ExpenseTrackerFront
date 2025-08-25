@@ -1,0 +1,39 @@
+@font-face {
+    font-family: "alexandria";
+    src: url("https://fonts.googleapis.com/css?family=Alexandria");
+}
+.body{
+ margin-left:25px;
+ margin-right:25px;
+}
+.body .home{
+    background-color:#ffffff;
+    color:#000000;
+    border-radius:100px;
+    padding:15px;
+}
+.container{
+    height:60px;
+    display: flex;
+    justify-content:left;
+    align-items: center;
+    gap:80px;
+    background-color: #1c75bc;
+    border-radius:200px;
+    margin-left:300px;
+    margin-right:300px;
+
+}
+.body .container img{
+    height: 20px;
+    background-color: #ffffff;
+    padding:25px;
+    border-radius: 30px;
+}
+.container a{
+    text-decoration: none;
+    font-size: 20px;
+    color:white;
+   font-family: "alexandria"
+}
+
