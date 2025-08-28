@@ -1,0 +1,113 @@
+
+
+h2{
+  color:#1c75bc
+}
+
+select,
+::picker(select){
+  appearance: base-select;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.2s;
+
+}
+::picker(select){
+    border: 1px solid #1c75bc;
+    background-color:#ffffff;
+    margin: 5px;
+
+}
+select>option{
+    border:none
+}
+option:checked{
+    background-color: #1c75bc;
+    color:white;
+}
+.req {
+  color: #1c75bc;
+}
+ 
+.card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  font-family: alexandria;
+
+}
+ 
+
+
+ 
+.field {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  
+}
+ 
+.field input,
+.field textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-family: alexandria;
+  transition: border-color 0.2s;
+  caret-color: #1c75bc;
+
+}
+ 
+.field input:focus,
+.field textarea:focus {
+  border-color:#1c75bc;
+}
+ 
+.field textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+ 
+
+ 
+/* Actions */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap:80px;
+  margin-top: 1.5rem;
+}
+ 
+.btn {
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+    font-family: alexandria;
+}
+ 
+.btn.primary {
+  background:#1c75bc;
+  color: #ffffff;
+}
+ 
+.btn.ghost {
+  background: transparent;
+  border: 1px solid #1c75bc;
+  color:#1c75bc;
+}
+ 
+.btn:hover {
+  opacity: 0.9;
+}
+ 
+
+ 
+

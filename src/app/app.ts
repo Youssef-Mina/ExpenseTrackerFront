@@ -9,9 +9,11 @@ import { CommonModule } from '@angular/common';
 import { Signin } from './signin/signin';
 import { AuthServices } from './services/auth-services';
 import { Signup } from './signup/signup';
+import { AddIncome } from './add-income/add-income';
+import { AddExpense } from './add-expense/add-expense';
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NaviBarHome, MainHome,FooterHome, ExpenseList, IncomeList, CommonModule, Signin, Signup],
+  imports: [RouterOutlet, NaviBarHome, MainHome,FooterHome, ExpenseList, IncomeList, CommonModule, Signin, Signup,AddIncome, AddExpense],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

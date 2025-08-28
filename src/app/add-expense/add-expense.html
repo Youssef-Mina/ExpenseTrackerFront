@@ -1,0 +1,45 @@
+<form [formGroup]="expenseForm" (ngSubmit)="onSubmit()">
+  <section class="card">
+    <h2>Add Income</h2>
+    <div class="fields">
+      <div class="field span-6">
+        <label for="category">Category <span class="req">*</span></label>
+        <select id="category"  formControlName="category">
+          @for (expense of expenses; track $index) {
+          <option [value]="expense">{{ expense }}</option>
+          }
+        </select>
+      </div>
+    </div>
+
+    <div class="field span-3">
+      <label for="amount">Price ($) <span class="req">*</span></label>
+      <input
+        id="amount"
+        formControlName="amount"
+        type="number"
+        placeholder="e.g., 500"
+      />
+    </div>
+
+    <div class="field span-8">
+      <label for="comment">Comment <span class="req">*</span></label>
+      <textarea
+        id="comment"
+        name="comment"
+        formControlName="comment"
+        placeholder="Short comment to help you remember"
+      ></textarea>
+    </div>
+
+    <div class="field span-4">
+      <label for="date">Date</label>
+      <input id="date" formControlName="date" type="datetime-local" />
+    </div>
+  </section>
+
+  <div class="actions">
+    <button type="reset" class="btn ghost">Clear</button>
+    <button type="submit" class="btn primary">Save Expense</button>
+  </div>
+</form>
