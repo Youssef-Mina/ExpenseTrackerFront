@@ -1,0 +1,32 @@
+
+<body>
+    <div class="container">
+    <nav>
+    <a routerLink="/mytracker/dashboard" routerLinkActive="active" class="dashboard">dashboard</a>
+    <a routerLink="/mytracker/expenselist" routerLinkActive="active" class="expenses">expenses</a>
+    <a routerLink="/mytracker/incomelist" routerLinkActive="active" class="incomes">incomes</a>
+</nav>
+
+
+<div class="sum">
+  <div class="expenses">
+    <p class="text">Total Expenses</p>
+    <p class="number">{{ totalExpenses }} EGP</p>
+  </div>
+
+  <div class="incomes">
+    <p class="text">Total Incomes</p>
+    <p class="number">{{ totalIncomes }} EGP</p>
+  </div>
+
+  <div class="net" [ngClass]="{ positive: netBalance >= 0, negative: netBalance < 0 }">
+    <p class="text">Net Balance</p>
+    <p class="number">{{ netBalance }} EGP</p>
+  </div>
+  </div>
+  </div>
+
+
+<router-outlet></router-outlet>
+
+</body>

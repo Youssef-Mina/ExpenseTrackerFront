@@ -9,17 +9,23 @@
           <option [value]="income">{{ income }}</option>
           }
         </select>
+        @if(incomeForm.get('category')?.invalid && incomeForm.get('category')?.touched ){
+      <small>*category is required</small>
+      }
       </div>
     </div>
 
     <div class="field span-3">
-      <label for="amount">Price ($) <span class="req">*</span></label>
+      <label for="amount">Amount ($) <span class="req">*</span></label>
       <input
         id="amount"
         formControlName="amount"
         type="number"
         placeholder="e.g., 500"
       />
+       @if(incomeForm.get('amount')?.invalid && incomeForm.get('amount')?.touched ){
+      <small>*amount of money is required</small>
+      }
     </div>
 
     <div class="field span-8">
@@ -30,15 +36,22 @@
         formControlName="comment"
         placeholder="Short comment to help you remember"
       ></textarea>
+       @if(incomeForm.get('comment')?.invalid && incomeForm.get('comment')?.touched ){
+      <small>*comment is required</small>
+      }
     </div>
 
     <div class="field span-4">
-      <label for="date">Date</label>
+      <label for="date">Date <span class="req">*</span></label>
       <input id="date" formControlName="date" type="datetime-local" />
+       @if(incomeForm.get('date')?.invalid && incomeForm.get('date')?.touched ){
+      <small>*date is required</small>
+      }
     </div>
   </section>
 
   <div class="actions">
+      
     <button type="reset" class="btn ghost">Clear</button>
     <button type="submit" class="btn primary">Save Income</button>
   </div>

@@ -1,8 +1,90 @@
-<button (click)="addIncome()">ADD INCOME</button>
-<button (click)="updateIncome()">UPDATE INCOME</button>
-<button (click)="deleteIncome()">DELETE INCOME</button>
+<div class="pageContainer">
+  <div class="bigContainer">
+    <h2>Your Incomes</h2>
+    <div class="smallContainer">
+      @for (i of incomes; track $index) {
+        <div class="incomeCard">
+          <div class="incomeRow">
+            <span class="label">Category:</span>
+            <span class="value">{{ i.category }}</span>
+          </div>
+          <div class="incomeRow">
+            <span class="label">Comment:</span>
+            <span class="value">{{ i.comment }}</span>
+          </div>
+          <div class="incomeRow">
+            <span class="label">Date:</span>
+            <span class="value">{{ i.date | date:'short' }}</span>
+          </div>
+          <div class="incomeRow">
+            <span class="label">Amount:</span>
+            <span class="value">{{ i.amount }} EGP</span>
+          </div>
 
-@for (income of incomes; track $index) {
+          <!-- Buttons row -->
+          <div class="cardActions">
+            <button class="editBtn" (click)="openEditModal(i)">Edit</button>
+            <button class="deleteBtn" (click)="deleteIncome(i._id)">Delete</button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
 
-<p>{{income.comment}}</p>    
+  <div class="sidebar"> 
+    <button class="addBtn" (click)="showAddIncome = true"> Add Income</button>
+    <button class="exportBtn" (click)="exportToExcel()">Export to Excel</button>
+  </div>
+</div>
+
+<!-- POPUP MODAL for Add Income -->
+@if (showAddIncome) {
+  <div class="modal">
+    <div class="modalContent">
+      <button class="closeBtn" (click)="showAddIncome = false">×</button>
+      <app-add-income></app-add-income>
+    </div>
+  </div>
+}
+
+<!-- POPUP MODAL for Edit Income -->
+@if (showEditIncome) {
+  <div class="modal">
+    <div class="modalContent">
+      <button class="closeBtn" (click)="closeEditModal()">×</button>
+
+      <h3>Edit Income</h3>
+      <form #editForm="ngForm" (ngSubmit)="saveEditIncome()">
+        <input
+          type="text"
+          name="category"
+          [(ngModel)]="selectedIncome.category"
+          class="form-control"
+          placeholder="Category"
+        />
+        <input
+          type="text"
+          name="comment"
+          [(ngModel)]="selectedIncome.comment"
+          class="form-control mt-2"
+          placeholder="Comment"
+        />
+        <input
+          type="date"
+          name="date"
+          [(ngModel)]="selectedIncome.date"
+          class="form-control mt-2"
+        />
+        <input
+          type="number"
+          name="amount"
+          [(ngModel)]="selectedIncome.amount"
+          class="form-control mt-2"
+          placeholder="Amount"
+        />
+
+        <button type="submit" class="saveBtn mt-3">Save</button>
+      </form>
+    </div>
+  </div>
 }

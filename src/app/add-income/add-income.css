@@ -108,6 +108,21 @@ option:checked{
   opacity: 0.9;
 }
  
+form.ng-invalid .primary{
+background-color: #999;
+cursor: not-allowed;
+}
 
+
+input.ng-invalid.ng-touched, 
+textarea.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched{
+  border: 1px solid #c62828;
+}
+
+small{
+  color: #c62828;
+  font-size: 10px;
+}
  
 

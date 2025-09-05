@@ -1,4 +1,5 @@
 .container{
+  
     display:flex;
     flex-direction: column;
     gap:25px;
@@ -41,6 +42,7 @@ button{
     border:none;
     height:50px;
     width:350px;
+    cursor: pointer;
 }
 
 h2{
@@ -50,6 +52,7 @@ h2{
 
 input.ng-touched.ng-invalid {
   border-color: #e74c3c;
+  color:red;
 }
  
 input.ng-touched.ng-valid {

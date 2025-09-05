@@ -1,41 +1,101 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { exhaustMap, map, Observable, take } from 'rxjs';
 import { Expense } from '../models/expense.model';
-
+import { AuthServices } from './auth-services';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ExpenseService {
-  
-  private http=inject(HttpClient);
+  private http = inject(HttpClient);
+  private authServices = inject(AuthServices);
 
-  private url ="http://localhost:3000/expenses";
+  private url = 'http://localhost:3000/expenses';
 
-  getAllExpenses(): Observable<Expense[]>{
-  
-    return this.http.get<any>(this.url).pipe(map((response)=>{
-      return response.data.expense
-    }));
+  getAllExpenses(userId?: string): Observable<Expense[]> {
+    return this.authServices.user.pipe(
+      take(1),
+      exhaustMap((user) => {
+        const headers = new HttpHeaders({
+          Authorization:`Bearer ${user?.token}`
+        });
+        return this.http.get<any>(this.url, {headers}).pipe(
+      map((response) => {
+        return response.data.expenses;
+      })
+    );
+      })
+    );
+    
   }
+  addExpense(expense: FormData): Observable<Expense> {
+  return this.authServices.user.pipe(
+    take(1),
+    exhaustMap((user) => {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${user?.token}`
+      });
 
-  addExpense(expense:Expense):Observable<Expense>{
-    return this.http.post<any>(this.url, expense).pipe(map((response)=>{
-      return response.data.expense;
-    }))
-  }
-
-  updateExpense(comment:string, updatedData:Partial<Expense>): Observable<Expense>{
-return this.http.patch<any>(`${this.url}/${comment}`, updatedData).pipe(map((response)=>{
-  return response.data.expense;
-}))
-  }
-
-  deleteExpense(comment:string): Observable<Expense>{
-return this.http.delete<any>(`${this.url}/${comment}`).pipe(map((response)=>{
-  return response.data.expense;
-}))
-  }
-
-
+      return this.http.post<any>(this.url, expense, { headers }).pipe(
+        map((response) => {
+          return response.data.expense;
+        })
+      );
+    })
+  );
 }
+
+
+  
+
+  updateExpense(id: string, updatedData: any): Observable<Expense> {
+  return this.authServices.user.pipe(
+    take(1),
+    exhaustMap((user) => {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${user?.token}`,
+      });
+
+      return this.http.patch<any>(`${this.url}/${id}`, updatedData, { headers }).pipe(
+        map((response) => {
+          return response.data.expense; // adjust if backend returns differently
+        })
+      );
+    })
+  );
+}
+
+  deleteExpense(id: string): Observable<any> {
+    return this.authServices.user.pipe(
+      take(1),
+      exhaustMap((user) => {
+        const headers = new HttpHeaders({
+          Authorization: `Bearer ${user?.token}`,
+        });
+
+        return this.http.delete<any>(`${this.url}/${id}`, { headers }).pipe(
+          map((response) => {
+            return response.data.expense;
+          }) // adjust based on your backend response
+        );
+      })
+    );
+  }
+
+
+  getExpenseById(id: string | null): Observable<Expense> {
+    return this.http.get<any>(`${this.url}/${id}`).pipe(
+      map((response) => {
+        return response.data.expense;
+      })
+    );
+  }
+}
+
+// addExpense(expense: FormData): Observable<Expense> {
+  //   return this.http.post<any>(this.url, expense).pipe(
+  //     map((response) => {
+  //       return response.data.expense;
+  //     })
+  //   );
+  // }

@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { IncomeService } from '../services/income-service';
+import { CanComponentDeactivate } from '../models/can-component-deactivate';
 
 @Component({
   selector: 'app-add-income',
@@ -14,9 +16,13 @@ import {
   styleUrl: './add-income.css',
  
 })
-export class AddIncome implements OnInit {
+export class AddIncome implements OnInit , CanComponentDeactivate{
   incomeForm!: FormGroup;
+  // currentDate= new Date().getDay();
+hasUnSavedChanges=true;
+  incomeService=inject(IncomeService);
 
+  
   ngOnInit(): void {
     this.incomeForm = new FormGroup({
       category: new FormControl(null, Validators.required), //same names fel formControlName fel elements eli handa5al fiha dol
@@ -24,30 +30,53 @@ export class AddIncome implements OnInit {
       comment: new FormControl(null, Validators.required),
       date: new FormControl(null, [
         Validators.required,
-        Validators.max(new Date().getFullYear()),
+        // Validators.max(new Date().getDay()),
       ]),
       
     });
   }
 
-  setExpense() {
+  setIncome() {
     this.incomeForm.setValue({
       category: 'salary',
       amount: 15000,
       comment: 'el sho8l el assasi',
-      date: '2025-06-01T00:00:00.000+00:00',
+      date: '2025-08-29T14:45',
     });
     
   }
 
   onSubmit() {
-    console.log(this.incomeForm.value);
-  }
+    if(this.incomeForm.invalid){
+      this.incomeForm.markAllAsTouched();
+      return;
+    }
+    const incomeData = this.incomeForm.value;
+
+          this.incomeService.addIncome(incomeData).subscribe({
+      next: (income) => {
+        console.log('Income added:', income);
+        alert('income added');
+        window.location.reload();
+        this.incomeForm.reset();
+        this.hasUnSavedChanges = false;
+      },
+      error: (err) => {
+        console.error('Error adding income:', err);
+      },
+    });
+  
+}
+
+
 
   incomes=["salary",
       "commission",
       "freelance",
       "investments",
       "miscellaneous",]
-}
+
+  }
+
+      
 

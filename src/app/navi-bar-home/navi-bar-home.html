@@ -1,11 +1,13 @@
-<div class="body">
+<nav class="body">
   <div class="container">
-    <img src="assets/youExx.png" />
-      <a href="#" class="home">home</a>
-      <a href="##" class="mytracker">myTracker</a>
-      <a href="###" class="acount">acount</a>
-      <a href="####" class="contact">contact us</a>
+    <a routerLink="/home" routerLinkActive="active" class="home"><img src="assets/youExx.png" /></a>
+      <a routerLink="/home" routerLinkActive="active" class="home">Home</a>
+      <a routerLink="/mytracker" routerLinkActive="active" class="mytracker">MyTracker</a>
+      <a routerLink="/contact"  routerLinkActive="active" class="contact">Contact us</a>
+       <a routerLink="/signin"  routerLinkActive="active" class="signin">Login</a>
+       <a routerLink="/signup"  routerLinkActive="active" class="signup">Sign up</a>
+       <button (click)="authServices.logout()">Logout</button>
       </div>
-    </div>
+    </nav>
   
  

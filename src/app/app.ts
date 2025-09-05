@@ -3,17 +3,17 @@ import { RouterOutlet } from '@angular/router';
 import{NaviBarHome} from './navi-bar-home/navi-bar-home';
 import{MainHome} from './main-home/main-home';
 import{FooterHome} from './footer-home/footer-home';
-import { ExpenseList } from './expense-list/expense-list';
-import { IncomeList } from './income-list/income-list';
+
 import { CommonModule } from '@angular/common';
 import { Signin } from './signin/signin';
 import { AuthServices } from './services/auth-services';
 import { Signup } from './signup/signup';
-import { AddIncome } from './add-income/add-income';
 import { AddExpense } from './add-expense/add-expense';
+import { AddIncome } from './add-income/add-income';
+
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NaviBarHome, MainHome,FooterHome, ExpenseList, IncomeList, CommonModule, Signin, Signup,AddIncome, AddExpense],
+  imports: [CommonModule,NaviBarHome,FooterHome, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

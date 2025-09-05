@@ -7,19 +7,19 @@
   </div>
 
   <div class="upload">
-  
-    <input
-      type="file"
-      name="photo"
-      ngModel
-      accept="image/*"
-      #photoRef="ngModel"
-      (change)="onFileSelected($event)"
-      class="input"
+  <img 
+      [src]="previewUrl || 'assets/profile.jpg'" 
+      alt="Avatar"
+      class="avatar"
+      (click)="fileInput.click()"
     />
-    @if (photoRef.invalid && photoRef.touched){
-    <small>*Enter a Valid Image</small>
-    }
+    <input 
+      type="file" 
+      #fileInput 
+      hidden 
+      accept="image/*" 
+      (change)="onFileSelected($event)"
+    />
   </div>
   <div>
     <label for="name">Name</label>
@@ -65,10 +65,10 @@
     }
   </div>
   <div>
-    <label for="password">Confirm Password</label>
+    <label for="confirmPassword">Confirm Password</label>
     <input
       type="password"
-      name="confirmpassword"
+      name="confirmPassword"
       ngModel
       required
       minlength="4"
@@ -77,9 +77,7 @@
     @if (confirmpasswordRef.invalid && confirmpasswordRef.touched){
     <small>*Confirm Password is required</small>
     }
-    @if(matchedPassword){
-        <small>Password not matched</small>
-    }
+  
   </div>
   <div class="button">
     <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>

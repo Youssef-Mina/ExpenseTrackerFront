@@ -1,6 +1,7 @@
 export interface Expense{
+_id: string;
 category: String;
 amount: number;
 comment:String;
-date:String;
+date:string | Date;
 }

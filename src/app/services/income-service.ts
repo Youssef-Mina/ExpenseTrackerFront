@@ -1,42 +1,96 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { exhaustMap, map, Observable, take } from 'rxjs';
 import { Income } from '../models/income.model';
+import { AuthServices } from './auth-services';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class IncomeService {
+  private http = inject(HttpClient);
+  private authServices = inject(AuthServices);
 
-  private http=inject(HttpClient);
+  private url = 'http://localhost:3000/incomes';
 
-  private url="http://localhost:3000/incomes";
-
-  getAllIncomes():Observable<Income[]>{
-
-    return this.http.get<any>(this.url).pipe(map((response)=>{
-      return response.data.income
-    }));
+  getAllIncomes(userId?: string): Observable<Income[]> {
+    return this.authServices.user.pipe(
+      take(1),
+      exhaustMap((user) => {
+        const headers = new HttpHeaders({
+          Authorization: `Bearer ${user?.token}`,
+        });
+        return this.http.get<any>(this.url, { headers }).pipe(
+          map((response) => {
+            return response.data.incomes;
+          })
+        );
+      })
+    );
   }
 
+  addIncome(income: FormData): Observable<Income> {
+    return this.authServices.user.pipe(
+      take(1),
+      exhaustMap((user) => {
+        const headers = new HttpHeaders({
+          Authorization: `Bearer ${user?.token}`,
+        });
 
-  addIncome(income:Income):Observable<Income>{
-    return this.http.post<any>(this.url, income).pipe(map((response)=>{
-      return response.data.income;
-    }))
+        return this.http.post<any>(this.url, income, { headers }).pipe(
+          map((response) => {
+            return response.data.income;
+          })
+        );
+      })
+    );
   }
 
-  updateIncome(comment:string, updatedData:Partial<Income>): Observable<Income>{
-return this.http.patch<any>(`${this.url}/${comment}`, updatedData).pipe(map((response)=>{
-  return response.data.income;
-}))
-  }
-  
-  deleteIncome(comment:string): Observable<Income>{
-return this.http.delete<any>(`${this.url}/${comment}`).pipe(map((response)=>{
-  return response.data.income;
-}))
-  }
+  updateIncome(id: string, updatedData: any): Observable<Income> {
+  return this.authServices.user.pipe(
+    take(1),
+    exhaustMap((user) => {
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${user?.token}`,
+      });
 
-
+      return this.http.patch<any>(`${this.url}/${id}`, updatedData, { headers }).pipe(
+        map((response) => {
+          return response.data.income; // adjust if backend returns differently
+        })
+      );
+    })
+  );
 }
+
+  deleteIncome(id: string): Observable<any> {
+    return this.authServices.user.pipe(
+      take(1),
+      exhaustMap((user) => {
+        const headers = new HttpHeaders({
+          Authorization: `Bearer ${user?.token}`,
+        });
+
+        return this.http.delete<any>(`${this.url}/${id}`, { headers }).pipe(
+          map((response) => {
+            return response.data.income;
+          }) // adjust based on your backend response
+        );
+      })
+    );
+  }
+
+  getIncomeById(id: string | null): Observable<Income> {
+    return this.http.get<any>(`${this.url}/${id}`).pipe(
+      map((response) => {
+        return response.data.expense;
+      })
+    );
+  }
+}
+
+// addIncome(income:FormData):Observable<Income>{
+//   return this.http.post<any>(this.url, income).pipe(map((response)=>{
+//     return response.data.income;
+//   }))
+// }

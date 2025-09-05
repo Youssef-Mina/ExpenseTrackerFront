@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { ExpenseService } from '../services/expense-service';
+import { CanComponentDeactivate } from '../models/can-component-deactivate';
 
 @Component({
   selector: 'app-add-expense',
@@ -12,44 +14,69 @@ import {
   templateUrl: './add-expense.html',
   styleUrl: './add-expense.css',
 })
-export class AddExpense implements OnInit {
+export class AddExpense implements OnInit, CanComponentDeactivate {
   expenseForm!: FormGroup;
+  // currentDate= new Date().getDay();
+  hasUnSavedChanges=true;
+expenseService=inject(ExpenseService);
 
   ngOnInit(): void {
     this.expenseForm = new FormGroup({
       category: new FormControl(null, Validators.required),
       amount: new FormControl(null, [Validators.required, Validators.min(0)]),
+      comment: new FormControl(null, Validators.required),
       date: new FormControl(null, [
         Validators.required,
-        Validators.max(new Date().getFullYear()),
+        // Validators.max(new Date().getDay()),
       ]),
-      comment: new FormControl(null, Validators.required),
+      
     });
   }
-setExpense() {
+
+  
+  onSubmit() {
+    if (this.expenseForm.invalid) {
+      this.expenseForm.markAllAsTouched();
+      return;
+    }
+    const expenseData = this.expenseForm.value;
+
+     
+          this.expenseService.addExpense(expenseData).subscribe({
+      next: (expense) => {
+        console.log('Expense added:', expense);
+        alert('expense added');
+        window.location.reload();
+        this.expenseForm.reset();
+        this.hasUnSavedChanges = false;
+      },
+      error: (err) => {
+        console.error('Error adding expense:', err);
+      },
+    });
+     
+  }
+
+  setExpense() {
     this.expenseForm.setValue({
       category: 'food',
       amount: 500,
       comment: 'KFC',
-      date: '2025-05-01T00:00:00.000+00:00',
+      date: '2025-08-29T14:45',
     });
-    
   }
 
 
-
-  onSubmit() {
-    console.log(this.expenseForm.value);
-  }
-
-  expenses=["food",
-      "bills",
-      "entertainment",
-      "transportation",
-      "repairs",
-      "medical",
-      "rent",
-      "education",
-      "travel",
-      "miscellaneous",]
+  expenses = [
+    'food',
+    'bills',
+    'entertainment',
+    'transportation',
+    'repairs',
+    'medical',
+    'rent',
+    'education',
+    'travel',
+    'miscellaneous',
+  ];
 }

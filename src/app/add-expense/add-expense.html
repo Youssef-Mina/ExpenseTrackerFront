@@ -1,6 +1,6 @@
 <form [formGroup]="expenseForm" (ngSubmit)="onSubmit()">
   <section class="card">
-    <h2>Add Income</h2>
+    <h2>Add Expenses</h2>
     <div class="fields">
       <div class="field span-6">
         <label for="category">Category <span class="req">*</span></label>
@@ -9,17 +9,23 @@
           <option [value]="expense">{{ expense }}</option>
           }
         </select>
+        @if(expenseForm.get('category')?.invalid && expenseForm.get('category')?.touched ){
+      <small>*expense category is required</small>
+      }
       </div>
     </div>
 
     <div class="field span-3">
-      <label for="amount">Price ($) <span class="req">*</span></label>
+      <label for="amount">Amount ($) <span class="req">*</span></label>
       <input
         id="amount"
         formControlName="amount"
         type="number"
         placeholder="e.g., 500"
       />
+      @if(expenseForm.get('amount')?.invalid && expenseForm.get('amount')?.touched ){
+      <small>*amount of money is required</small>
+      }
     </div>
 
     <div class="field span-8">
@@ -30,16 +36,24 @@
         formControlName="comment"
         placeholder="Short comment to help you remember"
       ></textarea>
+      @if(expenseForm.get('comment')?.invalid && expenseForm.get('comment')?.touched ){
+      <small>*comment is required</small>
+      }
     </div>
 
     <div class="field span-4">
-      <label for="date">Date</label>
+      <label for="date">Date <span class="req">*</span></label>
       <input id="date" formControlName="date" type="datetime-local" />
+     @if(expenseForm.get('date')?.invalid && expenseForm.get('date')?.touched ){
+      <small>*date is required</small>
+      }
+    
+      
     </div>
   </section>
 
   <div class="actions">
     <button type="reset" class="btn ghost">Clear</button>
-    <button type="submit" class="btn primary">Save Expense</button>
+    <button type="submit" class="btn primary" >Save Expense</button>
   </div>
 </form>

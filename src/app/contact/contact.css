@@ -1,0 +1,108 @@
+.contact-container {
+  max-width: 700px;
+  margin: 100px auto;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0px 8px 30px rgba(0,0,0,0.15);
+  padding: 50px;
+  position: relative;
+  font-family: alexandria;
+  animation: fadeInUp 1.2s ease forwards;
+  opacity: 0;
+}
+
+/* Logo in top-right */
+.logo {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.logo img {
+  height: 80px;
+  animation: zoomIn 1.2s ease forwards;
+  opacity: 0;
+}
+
+.title {
+  font-size: 50px;
+  color: #1c75bc;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: slideDown 1s ease forwards;
+}
+
+.desc {
+  font-size: 20px;
+  color: #444;
+  margin-bottom: 30px;
+  opacity: 0;
+  animation: fadeIn 1.5s ease forwards;
+  animation-delay: 0.5s;
+}
+
+.item {
+  font-size: 22px;
+  margin: 15px 0;
+  opacity: 0;
+  transform: translateX(-40px);
+  animation: slideRight 0.8s ease forwards;
+}
+
+.item:nth-child(3) {
+  animation-delay: 0.8s;
+}
+.item:nth-child(4) {
+  animation-delay: 1.1s;
+}
+.item:nth-child(5) {
+  animation-delay: 1.4s;
+}
+
+.highlight {
+  font-weight: bold;
+  color: #1c75bc;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideRight {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

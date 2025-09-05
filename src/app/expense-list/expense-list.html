@@ -1,11 +1,89 @@
+<div class="pageContainer">
+<div class="bigContainer">
+  <h2>Your Expenses</h2>
+  <div class="smallContainer">
+    @for (e of expenses; track $index) {
+      <div class="expenseCard">
+        <div class="expenseRow">
+          <span class="label">Category:</span>
+          <span class="value">{{ e.category }}</span>
+        </div>
+        <div class="expenseRow">
+          <span class="label">Comment:</span>
+          <span class="value">{{ e.comment }}</span>
+        </div>
+        <div class="expenseRow">
+          <span class="label">Date:</span>
+          <span class="value">{{ e.date | date:'short' }}</span>
+        </div>
+        <div class="expenseRow">
+          <span class="label">Amount:</span>
+          <span class="value">{{ e.amount }} EGP</span>
+        </div>
 
-<button (click)="addExpense()">ADD EXPENSE</button>
+        <!-- Buttons row -->
+        <div class="cardActions">
+          <button class="editBtn" (click)="openEditModal(e)">Edit</button>
+          <button class="deleteBtn" (click)="deleteExpense(e._id)">Delete</button>
+        </div>
+      </div>
+    }
+    
+  </div>
+  </div>
+<div class="sidebar"> 
+    <button class="addBtn" (click)="showAddExpense = true"> Add Expense</button>
+    <button class="exportBtn" (click)="exportToExcel()">Export to Excel</button>
+  </div>
+</div>
 
-<button (click)="updateExpense()">UPDATE EXPENSE</button>
-
-<button (click)="deleteExpense()">DELETE EXPENSE </button>
-
-@for (expense of expenses; track $index) {
-
-<p>{{expense.comment}}</p>    
+<!-- POPUP MODAL for AddExpense -->
+@if (showAddExpense) {
+  <div class="modal">
+    <div class="modalContent">
+      <button class="closeBtn" (click)="showAddExpense = false">×</button>
+      <app-add-expense></app-add-expense>
+    </div>
+  </div>
 }
+@if (showEditExpense) {
+  <div class="modal">
+    <div class="modalContent">
+      <button class="closeBtn" (click)="closeEditModal()">×</button>
+
+      <h3>Edit Expense</h3>
+      <form #editForm="ngForm" (ngSubmit)="saveEditExpense()">
+        <input
+          type="text"
+          name="category"
+          [(ngModel)]="selectedExpense.category"
+          class="form-control"
+          placeholder="Category"
+        />
+        <input
+          type="text"
+          name="comment"
+          [(ngModel)]="selectedExpense.comment"
+          class="form-control mt-2"
+          placeholder="Comment"
+        />
+        <input
+          type="date"
+          name="date"
+          [(ngModel)]="selectedExpense.date"
+          class="form-control mt-2"
+        />
+        <input
+          type="number"
+          name="amount"
+          [(ngModel)]="selectedExpense.amount"
+          class="form-control mt-2"
+          placeholder="Amount"
+        />
+
+        <button type="submit" class="saveBtn mt-3">Save</button>
+      </form>
+    </div>
+  </div>
+}
+

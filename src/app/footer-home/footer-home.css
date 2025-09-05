@@ -21,8 +21,9 @@ hr{
 a{
     opacity:60%;
     color:black;
-    text-decoration:none;
+  text-decoration: none;
     margin-bottom:10px;
+    cursor: pointer;
 }
 .div1{
     padding:30px;

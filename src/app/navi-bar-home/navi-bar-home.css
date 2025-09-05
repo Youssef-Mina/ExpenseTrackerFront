@@ -2,26 +2,52 @@
     font-family: "alexandria";
     src: url("https://fonts.googleapis.com/css?family=Alexandria");
 }
-.body{
- margin-left:25px;
- margin-right:25px;
+.active{
+ background-color:#ffffff;
+ border-radius:100px;
+ padding:15px;
 }
-.body .home{
-    background-color:#ffffff;
-    color:#000000;
-    border-radius:100px;
-    padding:15px;
+button{
+    text-decoration: none;
+    font-size: 20px;
+    color:white;
+   font-family: "alexandria";
+   background-color: #1c75bc;
+   padding:15px;
+   border: none;
+   font-weight: bold;
+
+   border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+}
+
+button:hover {
+    background-color: #105b8e;
+    box-shadow: 0px 0px 15px rgba(28, 117, 188, 0.6);
+    transform: scale(1.05);
+}
+
+.body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+     margin-left:25px;
+      margin-right:25px;
 }
 .container{
     height:60px;
+    width:1350px;
     display: flex;
     justify-content:left;
     align-items: center;
-    gap:80px;
+    gap:100px;
     background-color: #1c75bc;
     border-radius:200px;
-    margin-left:300px;
-    margin-right:300px;
+
+    animation: slideDown 1s ease forwards;
+    
 
 }
 .body .container img{
@@ -29,11 +55,52 @@
     background-color: #ffffff;
     padding:25px;
     border-radius: 30px;
+
+    transition: transform 0.3s ease;
 }
+
+.body .container img:hover {
+    transform: scale(1.15);
+}
+
 .container a{
     text-decoration: none;
     font-size: 20px;
-    color:white;
-   font-family: "alexandria"
+    color:black;
+   font-family: "alexandria";
+
+   position: relative;
+    transition: color 0.3s ease;
+}
+
+.container a:hover {
+    color: white;
+}
+
+.container a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    width: 0;
+    height: 2px;
+    background: white;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+.container a:hover::after {
+    width: 100%;
+}
+
+/* Slide in Navbar */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 

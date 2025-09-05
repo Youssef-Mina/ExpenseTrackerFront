@@ -3,7 +3,9 @@ export class UserModel {   //eb2a zawad ba2i ashya2 el user
     public email: string,
     public id: string,
     private _token: string,
-    private _expiresIn: Date
+    private _expiresIn: Date,
+    public name?: string,
+    public photo?: string
   ) {}
  
   get token(): string | null{

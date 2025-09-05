@@ -1,6 +1,7 @@
 import { Component, inject, ViewChild } from '@angular/core';
 import { AuthServices } from '../services/auth-services';
 import { FormsModule, NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -9,7 +10,7 @@ import { FormsModule, NgForm } from '@angular/forms';
   styleUrl: './signin.css'
 })
 export class Signin {
-
+  private router=inject(Router);
   private authService= inject(AuthServices);
 
   @ViewChild('signinForm') signinForm !:NgForm;
@@ -20,6 +21,8 @@ export class Signin {
     this.authService.login(email,password).subscribe({
       next:(token)=>{
         console.log(token);
+        alert("logged in Successfully");
+        this.router.navigate(["/mytracker"]);
       },
       error:(err)=>{
         console.log(err);
